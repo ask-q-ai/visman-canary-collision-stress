@@ -1,0 +1,54 @@
+---
+type: visualization
+canvasLayer:
+- id: wall_left
+  type: rectangle
+  position:
+    x: 0
+    y: 0
+  size:
+    width: 10
+    height: 360
+  physics:
+    bodyType: static
+  collision:
+    collisionGroups:
+    - wall
+- id: wall_right
+  type: rectangle
+  position:
+    x: 630
+    y: 0
+  size:
+    width: 10
+    height: 360
+  physics:
+    bodyType: static
+  collision:
+    collisionGroups:
+    - wall
+- repeat:
+    count: 50
+  id: ball_{index}
+  type: circle
+  position:
+    x: 320
+    y: 180
+  size:
+    radius: 5
+  style:
+    fillStyle: hsl({{index * 7}}, 70%, 50%)
+  physics:
+    bodyType: dynamic
+    vx: "{{ (index % 10 - 5) * 40 }}"
+    vy: "{{ (index / 10 - 2.5) * 40 }}"
+    bounce: 1.0
+    bounded: true
+    substeps: 4
+    separationBias: 1.5
+  collision:
+    collisionGroups:
+    - balls
+    collidesWith:
+    - wall
+    - balls
